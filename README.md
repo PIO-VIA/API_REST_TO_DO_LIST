@@ -48,4 +48,4 @@ git clone https://github.com/PIO-VIA/API_REST_TO_DO_LIST.git
 - Maintenant, vous pouvez faire les requètes `htpp( GET, POST,PUT, DELETE)`
 ---
 ## Auteur
-Ce projet est fait par moi **PIO VIANNEY** dans  le cadre de l'apprentissage de Spring Boot. 
+Ce projet est fait par moi **PIO VIANNEY** dans le cadre de l'apprentissage de Spring Boot. 

@@ -24,16 +24,12 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/users/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/users/**").permitAll()
 
-
-                        // Public: lecture des tâches (optionnel, tu peux l’enlever si besoin)
                         .requestMatchers(HttpMethod.GET, "/tasks/**").permitAll()
-
-                        // Protégé: création, modification, suppression de tâches
                         .requestMatchers(HttpMethod.POST, "/tasks/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/tasks/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/tasks/**").permitAll()
 
-                        .anyRequest().authenticated()
+                        //.anyRequest().authenticated()
                 )
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
