@@ -6,6 +6,7 @@ import com.example.demo.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,6 +20,7 @@ public class UserService {
 
     //  Créer un utilisateur
     public User createUser(User user) {
+        user.setUserUuid(String.valueOf(UUID.randomUUID()));
         return userRepository.save(user);
     }
 
@@ -26,22 +28,26 @@ public class UserService {
     public List<UserDTO> getAllUserDTOs() {
         return userRepository.findAll()
                 .stream()
-                .map(user -> new UserDTO(user.getId(), user.getUsername()))
+                .map(user -> new UserDTO(user.getUserUuid(), user.getUsername()))
                 .collect(Collectors.toList());
     }
 
     //  Récupérer un utilisateur par ID
-    public User getUserById(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé avec l'id : " + id));
+    public List<UserDTO> getUserById(String id) {
+        return userRepository.findByUserUuid(id)
+                .stream()
+                .map(user -> new UserDTO(user.getUserUuid(), user.getUsername()))
+                .collect(Collectors.toList());
     }
-
     //  Mettre à jour un utilisateur
     public User updateUser(Long id, User updatedUser) {
-        User existingUser = getUserById(id);
-        existingUser.setUsername(updatedUser.getUsername());
-        existingUser.setPassword(updatedUser.getPassword());
-        return userRepository.save(existingUser);
+        User existingUser =  userRepository.getReferenceById(id);
+        if(existingUser!=null){
+            existingUser.setUsername(updatedUser.getUsername());
+            existingUser.setPassword(updatedUser.getPassword());
+            return userRepository.save(existingUser);
+        }
+        throw new RuntimeException("Utilisateur non trouvé avec l'id : " + id);
     }
 
     //  Supprimer un utilisateur

@@ -32,7 +32,7 @@ public class UserController {
 
     //  Lire (récupérer) un utilisateur par son id
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
+    public List<UserDTO> getUserById(@PathVariable String id) {
         return userService.getUserById(id);
     }
 
