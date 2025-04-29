@@ -20,6 +20,10 @@ public class SecurityConfig {
                         // Public: création et lecture des utilisateurs
                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/users/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/users/**").permitAll()
+
 
                         // Public: lecture des tâches (optionnel, tu peux l’enlever si besoin)
                         .requestMatchers(HttpMethod.GET, "/tasks/**").permitAll()
